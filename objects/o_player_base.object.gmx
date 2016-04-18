@@ -291,6 +291,7 @@ if(player_state == NONE){
         player_state = MELEE;
         o = instance_create(x,y,o_player_melee);
         o.player_number = player_number;
+        
         instance_destroy();
       }else if(keyboard_check(range_key)){
         player_state = RANGE;
