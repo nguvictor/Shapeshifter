@@ -289,18 +289,19 @@ if(player_state == NONE){
       //Morph
       if(keyboard_check(melee_key)){
         player_state = MELEE;
-        o = instance_change(o_player_melee,false);
-        exit;//you have to exit after instance_change
-      }
-      if(keyboard_check(range_key)){
+        o = instance_create(x,y,o_player_melee);
+        o.player_number = player_number;
+        instance_destroy();
+      }else if(keyboard_check(range_key)){
         player_state = RANGE;
         o = instance_change(o_player_range,false);
-        exit;//you have to exit after instance_change
-      }
-      if(keyboard_check(block_key)){
+        o.player_number = player_number;
+        instance_destroy();
+      }else if(keyboard_check(block_key)){
         player_state = BLOCK;
         o = instance_change(o_player_range,false);
-        exit;//you have to exit after instance_change
+        o.player_number = player_number;
+        instance_destroy();
       }
 }
 </string>

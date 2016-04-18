@@ -30,6 +30,7 @@
   <scripts name="scripts">
     <script>scripts\scr_movement_platformer_setup.gml</script>
     <script>scripts\scr_movement_platformer.gml</script>
+    <script>scripts\scr_init.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="Base">
@@ -55,6 +56,7 @@
     </objects>
   </objects>
   <rooms name="rooms">
+    <room>rooms\r_init</room>
     <room>rooms\r_main</room>
   </rooms>
   <constants number="4">
