@@ -54,7 +54,6 @@
         <object>objects\o_player_block</object>
       </objects>
     </objects>
-    <object>objects\Babby</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_init</room>
