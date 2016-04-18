@@ -26,6 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>event_inherited(); //Uses inherit parent events
+
+//Player 
+player_number=1;
+controller_number=1;
+
 //Player Sprites
 none_sprite = spr_player_green;
 melee_sprite = spr_player_green_melee;

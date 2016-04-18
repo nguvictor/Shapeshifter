@@ -74,6 +74,8 @@ scr_movement_platformer_setup(
             <string>//physics_world_draw_debug(1);
 image_speed = 0.25;
 health = 100;
+
+controller_number = 0;
 player_number = 0;
 player_state = NONE;
 //player_gravity = 30;
@@ -98,6 +100,13 @@ right_key = vk_right;
 melee_key = vk_numpad1;
 range_key = vk_numpad2;
 block_key = vk_numpad3;
+
+//joystick buttons
+jump_joystick = 2;
+melee_joy = 3;
+range_joy = 4;
+block_joy = 1;
+
 </string>
           </argument>
         </arguments>
@@ -167,125 +176,8 @@ sprite_index = none_sprite;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*
-//Default Walking Controls
-show_debug_message(phy_speed_x);
-show_debug_message(phy_speed_y);
-if(player_state == NONE){
-        //Morph
-      if(keyboard_check(melee_key) &amp;&amp; player_state == NONE){
-        player_state = MELEE;
-        physics_apply_impulse(x,y,phy_speed_x*2,-1000);
-        alarm[0] = 60;
-        alarm[1] = 1;
-        sprite_index = melee_sprite;
-      }
-      if(keyboard_check(range_key) &amp;&amp; player_state == NONE){
-        player_state = RANGE;
-        physics_apply_impulse(x,y,phy_speed_x*2,phy_speed_y*2);
-        alarm[0] = 60;
-        sprite_index = range_sprite;
-      }
-      if(keyboard_check(block_key) &amp;&amp; player_state == NONE){
-        player_state = BLOCK;
-        physics_apply_impulse(x,y,phy_speed_x*2,phy_speed_y*2);
-        alarm[0] = 60;
-        sprite_index = block_sprite;
-      }
-      if(player_state == NONE){
-        phy_rotation = 0; //Reset any rotation;
-      }
-    if !keyboard_check(left_key) and !keyboard_check(right_key) and !keyboard_check(jump_key) and !keyboard_check(vk_down) and phy_speed_y = 0 then
-      {//If nothing is happening
-      //sprite_index = ...; sprite stand still
-      }
-    
-    if (phy_speed_y &gt;= 0 &amp;&amp; not place_free(x,y + phy_speed_y + 1)) then
-      {//if falling and there's ground below you
-      move_contact_solid(270,phy_speed_y + 1);
-      phy_speed_y = 0;
-      }
-    if keyboard_check(left_key) and (not keyboard_check(jump_key)) then
-      {//if moving left and not flying
-      for (i = 0; i&lt;= 8; i += 1;)
-        {//check to see if you are goin up a ramp. 
-        if place_free(x-run_speed,y-i)
-          {
-          //sprite_index = ...; sprite left
-          phy_position_x-= run_speed; phy_position_y-= i; exit;
-          }
-        }
-      }
-    else
-      {//if moving left and flying
-      if place_free(x-run_speed,y + phy_speed_y + player_gravity) and keyboard_check(left_key) then
-        {
-        phy_position_x = phy_position_x-run_speed;
-        //sprite_index = ...; sprite flying/falling
-        }
-      }
-    if keyboard_check(right_key) and (not keyboard_check(jump_key)) then
-      {//if moving right and not flying
-      for (i = 0; i&lt;= 8; i += 1;)
-        {//check to see if you are goin up a ramp
-        if place_free(x + run_speed,y-i)
-          {
-          //sprite_index = ...; sprite right
-          phy_position_x += run_speed; phy_position_y-= i; exit;
-          }
-        }
-      }
-    else
-      {//if moving right and flying
-      if place_free(x + run_speed,y + phy_speed_y + player_gravity) and keyboard_check(right_key) then
-        {
-        phy_position_x = phy_position_x + run_speed;
-        //sprite_index = ...; sprite flying/falling
-        }
-      }
-    
-      if keyboard_check(vk_up) and !place_free(x,y + 1) then
-        phy_speed_y = -jump_force; //jump
-    
-    if (not place_free(x,y-sprite_yoffset + phy_speed_y)) then
-      {//if not place free below the object
-      phy_speed_y = player_gravity;
-      }
-    if (not place_free(x,y)) and place_free(x,y-1) then
-      {//if stuck just below surface
-      phy_position_y = phy_position_y-1;
-      phy_speed_y = 0;
-      }
-    if phy_speed_y!= 0 then
-      {
-      //sprite_index = ...; sprite flying/falling
-      }
-      
-     
-}
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>if(player_state == NONE){
-    scr_movement_platformer(left_key,right_key,jump_key);
+    scr_movement_platformer(left_key,right_key,jump_key,controller_number+1);
       //Morph
       if(keyboard_check(melee_key)){
         player_state = MELEE;

@@ -1,4 +1,4 @@
-///movement_platformer(left, right, jump)
+///movement_platformer(left, right, jump, player_number)
 
 // Handles basic platformer movement, such as left, right, jumping and falling.
 // Should be placed within the step event of a player instance.
@@ -11,16 +11,23 @@
 
 // Dependencies: spd, acc, deacc, jspd, jps_max, jps, jtol, jdelay_max, jdelay, janalog, grav, grav_max, collosion, hspd, vspd
 show_debug_message("Working");
+
+jump_joystick=2;
+shield_joystick=1;
+melee_joystick=3;
+range_joystick=4;
+
 //Converts arguments to locals.
 var left = argument0;
 var right = argument1;
 var jump = argument2;
+var player_number = argument3;
 
 //Creates keypress checks.
-var lkey = keyboard_check(left);
-var rkey = keyboard_check(right);
-var jkey = keyboard_check(jump);
-var jkey_press = keyboard_check_pressed(jump);
+var lkey = keyboard_check(left) || joystick_xpos(player_number) < 0;
+var rkey = keyboard_check(right) || joystick_xpos(player_number) > 0;
+var jkey = keyboard_check(jump) || joystick_check_button(player_number, jump_joystick);
+var jkey_press = keyboard_check_pressed(jump) || joystick_check_button(player_number, jump_joystick);
 
 //Check for collision with ground.
 if place_meeting(x, y+1, collision)
